@@ -102,6 +102,12 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    elif n < 100:
+        return n % 10 - n // 10 - 1 if n % 10 - n // 10 > 0 else 0
+    else:
+        return missing_digits(n // 10) + (n % 10 - (n // 10) % 10 - 1 if n % 10 - (n // 10) % 10 > 0 else 0)
 
 
 def next_largest_coin(coin):
@@ -139,6 +145,16 @@ def count_coins(total):
     """
     "*** YOUR CODE HERE ***"
 
+    def f(n, m):
+        if n < m:
+            return 0
+        else:
+            with_m = 0 if m == 1 else f(n - m, m)
+            with_next_m = 0 if m == 25 else f(n, next_largest_coin(m))
+            return with_m + with_next_m + 1
+
+    return f(total, m=1)
+
 
 from operator import sub, mul
 
@@ -146,7 +162,7 @@ from operator import sub, mul
 def make_anonymous_factorial():
     """Return the value of an expression that computes factorial.
 
-    >>> make_anonymous_factorial()(5)
+    >>> make_anonymous_factorial(5)
     120
     >>> from construct_check import check
     >>> # ban any assignments or recursion
@@ -154,3 +170,5 @@ def make_anonymous_factorial():
     True
     """
     return 'YOUR_EXPRESSION_HERE'
+
+
