@@ -311,6 +311,12 @@ def add_trees(t1, t2):
       5
     """
     "*** YOUR CODE HERE ***"
+    result_label = label(t1) + label(t2)
+    new_branches = [add_trees(b1, b2) for b1, b2 in zip(branches(t1), branches(t2))]
+    i = len(new_branches)
+    result_branches = new_branches + branches(t1)[i:]
+    result_branches = result_branches + branches(t2)[i:]
+    return tree(result_label, result_branches)
 
 
 def build_successors_table(tokens):
